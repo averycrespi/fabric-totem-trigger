@@ -1,7 +1,6 @@
 package net.totemtrigger.mixin;
 
 import net.minecraft.client.gui.screen.TitleScreen;
-import net.totemtrigger.TotemTriggerMod;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class TotemTriggerMixin {
 	@Inject(at = @At("HEAD"), method = "init()V")
 	private void init(CallbackInfo info) {
-		TotemTriggerMod.LOGGER.info("This line is printed by an example mod mixin!");
+		// Intentionally left empty
 	}
 }
