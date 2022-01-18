@@ -14,11 +14,58 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.TranslatableText;
 
 public class ConfigManager {
+    public static TotemTriggerConfig getConfig() {
+        return loadConfigFromFile(findConfigFile());
+    }
+
+    public static Screen createConfigScreen(Screen parentScreen) {
+        File configFile = findConfigFile();
+        TotemTriggerConfig config = loadConfigFromFile(configFile);
+
+        ConfigBuilder builder = ConfigBuilder.create()
+                .setParentScreen(parentScreen)
+                .setTitle(new TranslatableText("title.totemtrigger.config"));
+
+        ConfigEntryBuilder entryBuilder = builder.entryBuilder();
+
+        ConfigCategory commandsCategory = builder
+                .getOrCreateCategory(new TranslatableText("category.totemtrigger.commands"));
+
+        commandsCategory
+                .addEntry(
+                        entryBuilder.startStrField(new TranslatableText("option.totemtrigger.command"), config.command1)
+                                .setDefaultValue("/say Hello!")
+                                .setTooltip(new TranslatableText("option.totemtrigger.command.tooltip"))
+                                .setSaveConsumer(newValue -> config.command1 = newValue)
+                                .build());
+
+        commandsCategory
+                .addEntry(
+                        entryBuilder.startStrField(new TranslatableText("option.totemtrigger.command"), config.command2)
+                                .setDefaultValue("")
+                                .setTooltip(new TranslatableText("option.totemtrigger.command.tooltip"))
+                                .setSaveConsumer(newValue -> config.command2 = newValue)
+                                .build());
+
+        commandsCategory
+                .addEntry(
+                        entryBuilder.startStrField(new TranslatableText("option.totemtrigger.command"), config.command3)
+                                .setDefaultValue("")
+                                .setTooltip(new TranslatableText("option.totemtrigger.command.tooltip"))
+                                .setSaveConsumer(newValue -> config.command3 = newValue)
+                                .build());
+
+        builder.setSavingRunnable(() -> {
+            saveConfigToFile(config, configFile);
+        });
+
+        return builder.build();
+    }
+
     private static File findConfigFile() {
         Path configDir = FabricLoader.getInstance().getConfigDir();
         File configFile = Paths.get(configDir.toString(), "totemtrigger", "config.json").toFile();
@@ -62,35 +109,4 @@ public class ConfigManager {
         }
     }
 
-    public static TotemTriggerConfig getConfig() {
-        return loadConfigFromFile(findConfigFile());
-    }
-
-    public static Screen createConfigScreen(Screen parentScreen) {
-        File configFile = findConfigFile();
-        TotemTriggerConfig config = loadConfigFromFile(configFile);
-
-        ConfigBuilder builder = ConfigBuilder.create()
-                .setParentScreen(parentScreen)
-                .setTitle(new TranslatableText("title.totemtrigger.config"));
-
-        ConfigEntryBuilder entryBuilder = builder.entryBuilder();
-
-        ConfigCategory commandsCategory = builder
-                .getOrCreateCategory(new TranslatableText("category.totemtrigger.commands"));
-
-        commandsCategory
-                .addEntry(
-                        entryBuilder.startStrField(new TranslatableText("option.totemtrigger.command"), config.command)
-                                .setDefaultValue("/say Hello!")
-                                .setTooltip(new TranslatableText("option.totemtrigger.command.tooltip"))
-                                .setSaveConsumer(newValue -> config.command = newValue)
-                                .build());
-
-        builder.setSavingRunnable(() -> {
-            saveConfigToFile(config, configFile);
-        });
-
-        return builder.build();
-    }
 }

@@ -7,6 +7,9 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -77,11 +80,20 @@ public class TotemTriggerMod implements ModInitializer {
 			if (!respondedToPreviousTotemUsage) {
 				LOGGER.info("Detected totem usage");
 				TotemTriggerConfig config = ConfigManager.getConfig();
-				player.sendChatMessage(config.command);
+				executeCommands(player, config);
 				respondedToPreviousTotemUsage = true;
 			}
 		} else {
 			respondedToPreviousTotemUsage = false;
+		}
+	}
+
+	private void executeCommands(ClientPlayerEntity player, TotemTriggerConfig config) {
+		List<String> commands = Arrays.asList(config.command1, config.command2, config.command3);
+		for (String command : commands) {
+			if (!command.isBlank()) {
+				player.sendChatMessage(command);
+			}
 		}
 	}
 }
