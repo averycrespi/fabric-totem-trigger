@@ -6,6 +6,8 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 
 import java.util.Arrays;
 import java.util.List;
@@ -78,7 +80,10 @@ public class TotemTriggerMod implements ModInitializer {
 		boolean totemWasUsed = hasAbsorption && hasFireResistance && hasRegeneration;
 		if (totemWasUsed) {
 			if (!respondedToPreviousTotemUsage) {
-				LOGGER.info("Detected totem usage");
+				LOGGER.info("Detected totem usage; running Totem Trigger commands");
+				player.sendSystemMessage(
+						new TranslatableText("text.totemtrigger.runningCommands").formatted(Formatting.GREEN),
+						player.getUuid());
 				TotemTriggerConfig config = ConfigManager.getConfig();
 				executeCommands(player, config);
 				respondedToPreviousTotemUsage = true;
