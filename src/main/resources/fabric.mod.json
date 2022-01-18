@@ -12,11 +12,12 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/totemtrigger/icon.png",
 
   "environment": "*",
   "entrypoints": {
-    "main": ["net.totemtrigger.TotemTriggerMod"]
+    "main": ["net.totemtrigger.TotemTriggerMod"],
+    "modmenu": ["net.totemtrigger.ModMenuIntegration"]
   },
   "mixins": ["modid.mixins.json"],
 

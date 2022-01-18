@@ -1,0 +1,6 @@
+{
+  "title.totemtrigger.config": "Totem Trigger Settings",
+  "category.totemtrigger.commands": "Commands",
+  "option.totemtrigger.command": "Command",
+  "option.totemtrigger.command.tooltip": "The command to run when a totem is used"
+}

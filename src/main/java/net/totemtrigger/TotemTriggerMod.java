@@ -26,9 +26,6 @@ public class TotemTriggerMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
 		if (minecraftClient == null) {
 			minecraftClient = MinecraftClient.getInstance();
 		}
@@ -79,7 +76,8 @@ public class TotemTriggerMod implements ModInitializer {
 		if (totemWasUsed) {
 			if (!respondedToPreviousTotemUsage) {
 				LOGGER.info("Detected totem usage");
-				player.sendChatMessage("I used a totem");
+				TotemTriggerConfig config = ConfigManager.getConfig();
+				player.sendChatMessage(config.command);
 				respondedToPreviousTotemUsage = true;
 			}
 		} else {
