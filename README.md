@@ -1,3 +1,5 @@
+<img align="right" src="src/main/resources/assets/totemtrigger/icon.png">
+
 # Totem Trigger
 
 > Trigger a command when a Totem of Undying is used.
