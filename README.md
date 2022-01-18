@@ -13,6 +13,7 @@ You may find this mod useful if:
 
 ## Requirements
 
+- Minecraft 1.18
 - [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
 - [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
 - [ModMenu](https://www.curseforge.com/minecraft/mc-mods/modmenu)
